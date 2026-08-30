@@ -1,0 +1,9 @@
+playwright
+openmeteo-requests
+requests-cache
+retry-requests
+numpy
+pandas
+beautifulsoup4
+requests
+plotly
