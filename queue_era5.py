@@ -9,8 +9,6 @@ HEADERS = {"PRIVATE-TOKEN": API_KEY, "Content-Type": "application/json"}
 
 # Nota: sono 11 task totali (2025 H2 surf, 2026 H1/H2 surf, 2022-2025 H1/H2 press)
 tasks = [
-    # --- 2025 & 2026 SINGLE LEVELS ---
-    {"dataset": "reanalysis-era5-single-levels", "year": "2026", "months": ["07", "08", "09", "10"], "type": "surf_H2"},
 
     # --- 2022 PRESSURE LEVELS ---
     {"dataset": "reanalysis-era5-pressure-levels", "year": "2022", "months": ["03", "04", "05", "06"], "type": "press_H1"},
