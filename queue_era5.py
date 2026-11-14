@@ -21,9 +21,6 @@ client = cdsapi.Client(
 # Lista completa dei task (include deduplicazione automatica contro i job già presenti)
 tasks = [
     # --- 2025 & 2026 SINGLE LEVELS ---
-    {"dataset": "reanalysis-era5-single-levels", "year": "2025", "months": ["07", "08", "09", "10"], "type": "surf_H2"},
-    {"dataset": "reanalysis-era5-single-levels", "year": "2026", "months": ["03", "04", "05", "06"], "type": "surf_H1"},
-    {"dataset": "reanalysis-era5-single-levels", "year": "2026", "months": ["07", "08", "09", "10"], "type": "surf_H2"},
 
     # --- 2022 PRESSURE LEVELS ---
     {"dataset": "reanalysis-era5-pressure-levels", "year": "2022", "months": ["03", "04", "05", "06"], "type": "press_H1"},
