@@ -1,7 +1,9 @@
 name: Queue ERA5 Copernicus Jobs
 
 on:
-  workflow_dispatch: # Avvio manuale con un click dalla tab "Actions"
+  workflow_dispatch: # Avvio manuale dalla tab Actions
+  schedule:
+    - cron: '15 */6 * * *' # Riparte automaticamente ogni 6 ore
 
 jobs:
   queue-cds:
@@ -17,8 +19,8 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install requests
-        run: pip install requests
+      - name: Install dependencies
+        run: pip install --upgrade requests cdsapi
 
       - name: Run CDS Queue Poller
         env:
