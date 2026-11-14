@@ -10,7 +10,7 @@ BASE_URL = os.environ["CDS_URL"].rstrip("/")
 API_KEY = os.environ["CDS_KEY"]
 HEADERS = {"PRIVATE-TOKEN": API_KEY, "Content-Type": "application/json"}
 
-# Client ufficiale CDS in modalità asincrona (non attende il completamento)
+# Client ufficiale CDS in modalità asincrona
 client = cdsapi.Client(
     url=BASE_URL,
     key=API_KEY,
@@ -18,42 +18,35 @@ client = cdsapi.Client(
     quiet=True
 )
 
-# Lista completa dei task (include deduplicazione automatica contro i job già presenti)
-tasks = [
-    # --- 2025 & 2026 SINGLE LEVELS ---
-
-    # --- 2022 PRESSURE LEVELS ---
-    {"dataset": "reanalysis-era5-pressure-levels", "year": "2022", "months": ["03", "04", "05", "06"], "type": "press_H1"},
-    {"dataset": "reanalysis-era5-pressure-levels", "year": "2022", "months": ["07", "08", "09", "10"], "type": "press_H2"},
-
-    # --- 2023 PRESSURE LEVELS ---
-    {"dataset": "reanalysis-era5-pressure-levels", "year": "2023", "months": ["03", "04", "05", "06"], "type": "press_H1"},
-    {"dataset": "reanalysis-era5-pressure-levels", "year": "2023", "months": ["07", "08", "09", "10"], "type": "press_H2"},
-
-    # --- 2024 PRESSURE LEVELS ---
-    {"dataset": "reanalysis-era5-pressure-levels", "year": "2024", "months": ["03", "04", "05", "06"], "type": "press_H1"},
-    {"dataset": "reanalysis-era5-pressure-levels", "year": "2024", "months": ["07", "08", "09", "10"], "type": "press_H2"},
-
-    # --- 2025 PRESSURE LEVELS ---
-    {"dataset": "reanalysis-era5-pressure-levels", "year": "2025", "months": ["03", "04", "05", "06"], "type": "press_H1"},
-    {"dataset": "reanalysis-era5-pressure-levels", "year": "2025", "months": ["07", "08", "09", "10"], "type": "press_H2"},
-
-    # --- 2026 PRESSURE LEVELS ---
-    {"dataset": "reanalysis-era5-pressure-levels", "year": "2026", "months": ["03", "04", "05", "06"], "type": "press_H1"},
-    {"dataset": "reanalysis-era5-pressure-levels", "year": "2026", "months": ["07", "08", "09", "10"], "type": "press_H2"},
+# Genera automaticamente i blocchi bimestrali per i Pressure Levels (2022 - 2026)
+# 2 mesi x 3 variables x 2 levels = 50% del costo rispetto a 4 mesi -> passa sotto il limite CDS
+years = ["2022", "2023", "2024", "2025", "2026"]
+month_chunks = [
+    (["03", "04"], "press_M03_04"),
+    (["05", "06"], "press_M05_06"),
+    (["07", "08"], "press_M07_08"),
+    (["09", "10"], "press_M09_10"),
 ]
+
+tasks = []
+for y in years:
+    for months, label in month_chunks:
+        tasks.append({
+            "dataset": "reanalysis-era5-pressure-levels",
+            "year": y,
+            "months": months,
+            "type": label
+        })
 
 def log(msg):
     print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {msg}", flush=True)
 
 def log_detailed_error(context, exc, payload=None):
-    """Stampa un blocco diagnostico completo con status code, body HTTP e traceback"""
     log("============================================================")
     log(f"[ERRORE DETTAGLIATO] Contesto: {context}")
     log(f"Tipo Eccezione : {type(exc).__name__}")
     log(f"Messaggio      : {exc}")
 
-    # Estrae la risposta HTTP se presente nell'eccezione (requests o cdsapi/datapi)
     resp = getattr(exc, "response", None)
     if resp is not None:
         log(f"HTTP Status    : {getattr(resp, 'status_code', 'N/A')}")
@@ -73,8 +66,8 @@ def log_detailed_error(context, exc, payload=None):
     traceback.print_exc()
     log("============================================================")
 
-def build_request_dict(year, months, dataset):
-    req = {
+def build_request_dict(year, months):
+    return {
         "product_type": ["reanalysis"],
         "year": [year],
         "month": months,
@@ -84,23 +77,19 @@ def build_request_dict(year, months, dataset):
             "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
             "18:00", "19:00"
         ],
+        "variable": [
+            "u_component_of_wind",
+            "v_component_of_wind",
+            "temperature"
+        ],
+        "pressure_level": ["850", "925"],
         "data_format": "netcdf",
         "download_format": "unarchived",
         "area": [43.5, 10.25, 43.25, 10.5]
     }
-    if "single-levels" in dataset:
-        req["variable"] = [
-            "10m_u_component_of_wind", "10m_v_component_of_wind",
-            "2m_temperature", "surface_pressure",
-            "total_cloud_cover", "boundary_layer_height"
-        ]
-    else:
-        req["variable"] = ["u_component_of_wind", "v_component_of_wind", "temperature"]
-        req["pressure_level"] = ["850", "925"]
-    return req
 
 def get_jobs_status():
-    url = f"{BASE_URL}/retrieve/v1/jobs?limit=50"
+    url = f"{BASE_URL}/retrieve/v1/jobs?limit=60"
     resp = requests.get(url, headers=HEADERS, timeout=25)
     resp.raise_for_status()
     return resp.json().get("jobs", [])
@@ -120,14 +109,13 @@ def filter_already_submitted(task_list, existing_jobs):
     for t in task_list:
         sig = (t["dataset"], (t["year"],), tuple(sorted(t["months"])))
         if sig in active_sigs:
-            log(f"[SKIP] {t['year']}_{t['type']} ({t['dataset']}) già presente sul server CDS.")
+            log(f"[SKIP] {t['year']}_{t['type']} già presente sul server CDS.")
         else:
             filtered.append(t)
     return filtered
 
 def submit_job(task):
-    """Invia tramite client ufficiale cdsapi in modalità asincrona"""
-    req_dict = build_request_dict(task["year"], task["months"], task["dataset"])
+    req_dict = build_request_dict(task["year"], task["months"])
     try:
         remote = client.retrieve(task["dataset"], req_dict)
         return remote.request_id
@@ -136,7 +124,7 @@ def submit_job(task):
         raise
 
 # --- MAIN LOOP ---
-log("=== AVVIO POLLER GITHUB ACTIONS PER CODA CDS ===")
+log("=== AVVIO POLLER GITHUB ACTIONS (PRESSURE LEVELS BIMESTRALI) ===")
 try:
     initial_jobs = get_jobs_status()
     tasks = filter_already_submitted(tasks, initial_jobs)
@@ -145,7 +133,7 @@ except Exception as e:
 
 log(f"Task effettivi da accodare: {len(tasks)}")
 start_time = time.time()
-MAX_RUNTIME_SEC = 5.5 * 3600  # Stop pulito prima del limite di 6h di GitHub Actions
+MAX_RUNTIME_SEC = 5.5 * 3600
 
 while tasks:
     if time.time() - start_time > MAX_RUNTIME_SEC:
@@ -170,7 +158,6 @@ while tasks:
                 acc_count += 1
                 time.sleep(2)
             except Exception:
-                # L'errore dettagliato è già stato stampato dentro submit_job
                 tasks.insert(0, next_task)
                 break
 
@@ -181,5 +168,5 @@ while tasks:
         log(f"Rimanenti da accodare: {len(tasks)}. Prossimo check tra 60s...")
         time.sleep(60)
     else:
-        log("=== TUTTI I TASK SONO STATI ACCODATI CON SUCCESSO! ===")
+        log("=== TUTTI I TASK PRESSURE LEVELS SONO STATI ACCODATI CON SUCCESSO! ===")
         break
