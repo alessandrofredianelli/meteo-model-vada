@@ -1,0 +1,322 @@
+[
+  {
+    "id": "2022_press_M03",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2022",
+    "month": "03",
+    "status": "successful",
+    "job_id": null
+  },
+  {
+    "id": "2022_press_M04",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2022",
+    "month": "04",
+    "status": "successful",
+    "job_id": null
+  },
+  {
+    "id": "2022_press_M05",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2022",
+    "month": "05",
+    "status": "successful",
+    "job_id": null
+  },
+  {
+    "id": "2022_press_M06",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2022",
+    "month": "06",
+    "status": "successful",
+    "job_id": null
+  },
+  {
+    "id": "2022_press_M07",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2022",
+    "month": "07",
+    "status": "successful",
+    "job_id": null
+  },
+  {
+    "id": "2022_press_M08",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2022",
+    "month": "08",
+    "status": "successful",
+    "job_id": null
+  },
+  {
+    "id": "2022_press_M09",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2022",
+    "month": "09",
+    "status": "successful",
+    "job_id": null
+  },
+  {
+    "id": "2022_press_M10",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2022",
+    "month": "10",
+    "status": "successful",
+    "job_id": null
+  },
+  {
+    "id": "2023_press_M03",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2023",
+    "month": "03",
+    "status": "successful",
+    "job_id": null
+  },
+  {
+    "id": "2023_press_M04",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2023",
+    "month": "04",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2023_press_M05",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2023",
+    "month": "05",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2023_press_M06",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2023",
+    "month": "06",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2023_press_M07",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2023",
+    "month": "07",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2023_press_M08",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2023",
+    "month": "08",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2023_press_M09",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2023",
+    "month": "09",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2023_press_M10",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2023",
+    "month": "10",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2024_press_M03",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2024",
+    "month": "03",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2024_press_M04",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2024",
+    "month": "04",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2024_press_M05",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2024",
+    "month": "05",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2024_press_M06",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2024",
+    "month": "06",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2024_press_M07",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2024",
+    "month": "07",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2024_press_M08",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2024",
+    "month": "08",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2024_press_M09",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2024",
+    "month": "09",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2024_press_M10",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2024",
+    "month": "10",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2025_press_M03",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2025",
+    "month": "03",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2025_press_M04",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2025",
+    "month": "04",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2025_press_M05",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2025",
+    "month": "05",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2025_press_M06",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2025",
+    "month": "06",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2025_press_M07",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2025",
+    "month": "07",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2025_press_M08",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2025",
+    "month": "08",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2025_press_M09",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2025",
+    "month": "09",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2025_press_M10",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2025",
+    "month": "10",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2026_press_M03",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2026",
+    "month": "03",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2026_press_M04",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2026",
+    "month": "04",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2026_press_M05",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2026",
+    "month": "05",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2026_press_M06",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2026",
+    "month": "06",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2026_press_M07",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2026",
+    "month": "07",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2026_press_M08",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2026",
+    "month": "08",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2026_press_M09",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2026",
+    "month": "09",
+    "status": "pending",
+    "job_id": null
+  },
+  {
+    "id": "2026_press_M10",
+    "dataset": "reanalysis-era5-pressure-levels",
+    "year": "2026",
+    "month": "10",
+    "status": "pending",
+    "job_id": null
+  }
+]
