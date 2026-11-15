@@ -1,14 +1,17 @@
 name: Queue ERA5 Copernicus Jobs
 
 on:
-  workflow_dispatch: # Avvio manuale dalla tab Actions
+  workflow_dispatch:
   schedule:
-    - cron: '15 */6 * * *' # Riparte automaticamente ogni 6 ore
+    - cron: '10 */6 * * *'
+
+permissions:
+  contents: write  # Necessario per salvare cds_state.json nel repository
 
 jobs:
   queue-cds:
     runs-on: ubuntu-latest
-    timeout-minutes: 350
+    timeout-minutes: 345
 
     steps:
       - name: Checkout repository
@@ -19,11 +22,19 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
-        run: pip install --upgrade requests cdsapi
+      - name: Install requests
+        run: pip install requests
 
       - name: Run CDS Queue Poller
         env:
           CDS_URL: ${{ secrets.CDS_URL }}
           CDS_KEY: ${{ secrets.CDS_KEY }}
         run: python queue_era5.py
+
+      - name: Commit and Push State
+        if: always()
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add cds_state.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update CDS queue state" && git push)
