@@ -12,9 +12,9 @@ STATE_FILE = "cds_state.json"
 YEARS = ["2022", "2023", "2024", "2025", "2026"]
 MONTHS = ["03", "04", "05", "06", "07", "08", "09", "10"]
 
-# --- DURATA MASSIMA SINGOLA RUN ---
-MAX_RUNTIME_SEC = 5 * 60        # TEST: 5 minuti (300 secondi)
-# MAX_RUNTIME_SEC = 5.3 * 3600  # PRODUZIONE: 5 ore e 18 minuti (decommenta dopo il test)
+# --- DURATA MASSIMA SINGOLA RUN (PRODUZIONE) ---
+# MAX_RUNTIME_SEC = 5 * 60      # TEST: 5 minuti (disattivato)
+MAX_RUNTIME_SEC = 5.3 * 3600    # PRODUZIONE: 5 ore e 18 minuti
 
 def log(msg):
     print(f"[{datetime.now().strftime('%H:%M:%S')}] {msg}", flush=True)
