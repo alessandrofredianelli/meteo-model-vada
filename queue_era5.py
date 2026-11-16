@@ -12,6 +12,10 @@ STATE_FILE = "cds_state.json"
 YEARS = ["2022", "2023", "2024", "2025", "2026"]
 MONTHS = ["03", "04", "05", "06", "07", "08", "09", "10"]
 
+# --- DURATA MASSIMA SINGOLA RUN ---
+MAX_RUNTIME_SEC = 5 * 60        # TEST: 5 minuti (300 secondi)
+# MAX_RUNTIME_SEC = 5.3 * 3600  # PRODUZIONE: 5 ore e 18 minuti (decommenta dopo il test)
+
 def log(msg):
     print(f"[{datetime.now().strftime('%H:%M:%S')}] {msg}", flush=True)
 
@@ -19,8 +23,7 @@ def load_or_init_state():
     if os.path.exists(STATE_FILE):
         with open(STATE_FILE, "r") as f:
             return json.load(f)
-    
-    # Inizializza i 40 task mensili per i pressure levels
+
     state = []
     for y in YEARS:
         for m in MONTHS:
@@ -29,7 +32,7 @@ def load_or_init_state():
                 "dataset": "reanalysis-era5-pressure-levels",
                 "year": y,
                 "month": m,
-                "status": "pending",  # pending | submitted | successful | failed
+                "status": "pending",
                 "job_id": None
             })
     save_state(state)
@@ -60,7 +63,6 @@ def build_payload(year, month):
     }
 
 def get_global_accepted_count():
-    """Conta quanti job globali sull'account sono attualmente in stato 'accepted' (max 3)"""
     url = f"{BASE_URL}/retrieve/v1/jobs?limit=30"
     resp = requests.get(url, headers=HEADERS, timeout=20)
     resp.raise_for_status()
@@ -70,7 +72,6 @@ def get_global_accepted_count():
     return acc, run
 
 def check_single_job(job_id):
-    """Verifica lo stato puntuale di un job già inviato"""
     url = f"{BASE_URL}/retrieve/v1/jobs/{job_id}"
     resp = requests.get(url, headers=HEADERS, timeout=20)
     resp.raise_for_status()
@@ -85,15 +86,13 @@ def submit_task(task):
         resp.raise_for_status()
     return resp.json().get("jobID")
 
-log("=== AVVIO POLLER STATELESS -> STATEFUL (cds_state.json) ===")
+log(f"=== AVVIO POLLER STATEFUL (Max runtime: {MAX_RUNTIME_SEC}s) ===")
 state = load_or_init_state()
-
 start_time = time.time()
-MAX_RUNTIME_SEC = 5.3 * 3600  # 5 ore e 18 min (lascia margine per il commit finale)
 
 try:
     while True:
-        # 1. Aggiorna lo stato dei task già inviati ('submitted')
+        # 1. Aggiorna stato dei task già inviati ('submitted')
         changed = False
         for t in state:
             if t["status"] == "submitted" and t["job_id"]:
@@ -118,7 +117,7 @@ try:
             break
 
         if time.time() - start_time > MAX_RUNTIME_SEC:
-            log(f"[STOP SICUREZZA] Raggiunto limite tempo VM. Rimasti pending: {len(pending_tasks)}. Salvo stato ed esco.")
+            log(f"[STOP SICUREZZA] Raggiunto limite tempo ({MAX_RUNTIME_SEC}s). Rimasti pending: {len(pending_tasks)}. Salvo stato ed esco.")
             break
 
         # 2. Controlla gli slot 'accepted' liberi su CDS e accoda i prossimi pending
