@@ -77,7 +77,7 @@
     "year": "2023",
     "month": "04",
     "status": "successful",
-    "job_id": "f0f11315-7e42-41d3-a946-fafb6dcc2e32"
+    "job_id": null
   },
   {
     "id": "2023_press_M05",
@@ -85,7 +85,7 @@
     "year": "2023",
     "month": "05",
     "status": "successful",
-    "job_id": "dcce444a-53c9-4be6-9215-0773fb0af4c9"
+    "job_id": null
   },
   {
     "id": "2023_press_M06",
@@ -93,7 +93,7 @@
     "year": "2023",
     "month": "06",
     "status": "successful",
-    "job_id": "2be214d2-39c6-4dcc-ab38-40bb53cc8078"
+    "job_id": null
   },
   {
     "id": "2023_press_M07",
@@ -101,7 +101,7 @@
     "year": "2023",
     "month": "07",
     "status": "successful",
-    "job_id": "e0314d0c-03a6-402c-95f9-a1f70757ec5f"
+    "job_id": null
   },
   {
     "id": "2023_press_M08",
@@ -109,7 +109,7 @@
     "year": "2023",
     "month": "08",
     "status": "successful",
-    "job_id": "727436aa-ed4f-418e-9d16-b1048f53faf2"
+    "job_id": null
   },
   {
     "id": "2023_press_M09",
@@ -117,7 +117,7 @@
     "year": "2023",
     "month": "09",
     "status": "successful",
-    "job_id": "9bcdb81b-e2ce-452b-98e8-b08bc6b00bae"
+    "job_id": null
   },
   {
     "id": "2023_press_M10",
@@ -125,7 +125,7 @@
     "year": "2023",
     "month": "10",
     "status": "successful",
-    "job_id": "d5071f5d-babf-439a-81a9-7119b2ab1978"
+    "job_id": null
   },
   {
     "id": "2024_press_M03",
@@ -133,30 +133,30 @@
     "year": "2024",
     "month": "03",
     "status": "successful",
-    "job_id": "70f16317-0d1a-479e-813d-8f6009168c13"
+    "job_id": null
   },
   {
     "id": "2024_press_M04",
     "dataset": "reanalysis-era5-pressure-levels",
     "year": "2024",
     "month": "04",
-    "status": "submitted",
-    "job_id": "bcfcb7f0-f2d8-4efa-8f92-5768bdbc5249"
+    "status": "successful",
+    "job_id": null
   },
   {
     "id": "2024_press_M05",
     "dataset": "reanalysis-era5-pressure-levels",
     "year": "2024",
     "month": "05",
-    "status": "submitted",
-    "job_id": "b0ed62b3-6437-48f1-a80c-3ebafae17e56"
+    "status": "successful",
+    "job_id": null
   },
   {
     "id": "2024_press_M06",
     "dataset": "reanalysis-era5-pressure-levels",
     "year": "2024",
     "month": "06",
-    "status": "successful",
+    "status": "submitted",
     "job_id": null
   },
   {
@@ -164,7 +164,7 @@
     "dataset": "reanalysis-era5-pressure-levels",
     "year": "2024",
     "month": "07",
-    "status": "successful",
+    "status": "submitted",
     "job_id": null
   },
   {
@@ -172,7 +172,7 @@
     "dataset": "reanalysis-era5-pressure-levels",
     "year": "2024",
     "month": "08",
-    "status": "pending",
+    "status": "submitted",
     "job_id": null
   },
   {
