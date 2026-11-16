@@ -3,7 +3,7 @@ name: Queue ERA5 Copernicus Jobs
 on:
   workflow_dispatch:
   schedule:
-    - cron: '10 */6 * * *'
+    - cron: '00 */1 * * *'
 
 permissions:
   contents: write  # Necessario per salvare cds_state.json nel repository
