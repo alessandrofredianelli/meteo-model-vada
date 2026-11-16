@@ -164,7 +164,7 @@
     "dataset": "reanalysis-era5-pressure-levels",
     "year": "2024",
     "month": "07",
-    "status": "pending",
+    "status": "successful",
     "job_id": null
   },
   {
