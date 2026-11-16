@@ -2,11 +2,10 @@ name: Queue ERA5 Copernicus Jobs
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '00 */1 * * *'
 
 permissions:
-  contents: write  # Necessario per salvare cds_state.json nel repository
+  contents: write
+  actions: write
 
 jobs:
   queue-cds:
@@ -22,8 +21,8 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install requests
-        run: pip install requests
+      - name: Install dependencies
+        run: pip install --upgrade requests cdsapi
 
       - name: Run CDS Queue Poller
         env:
@@ -31,10 +30,21 @@ jobs:
           CDS_KEY: ${{ secrets.CDS_KEY }}
         run: python queue_era5.py
 
-      - name: Commit and Push State
+      - name: Commit, Push State and Re-trigger if Pending
         if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add cds_state.json
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update CDS queue state" && git push)
+
+          PENDING=$(python -c "import json; d=json.load(open('cds_state.json')); print(sum(1 for t in d if t['status']=='pending'))")
+          echo "Task rimasti in stato pending: $PENDING"
+          if [ "$PENDING" -gt "0" ]; then
+            echo "Avvio automatico della prossima run..."
+            gh workflow run queue_era5.yml --ref ${{ github.ref_name }}
+          else
+            echo "Tutti i task sono stati accodati! Nessun riavvio necessario."
+          fi
