@@ -252,7 +252,7 @@
     "dataset": "reanalysis-era5-pressure-levels",
     "year": "2025",
     "month": "10",
-    "status": "submitted",
+    "status": "successful",
     "job_id": "57c05771-7de6-48c5-a253-ee7a6cd7eb14"
   },
   {
@@ -260,7 +260,7 @@
     "dataset": "reanalysis-era5-pressure-levels",
     "year": "2026",
     "month": "03",
-    "status": "submitted",
+    "status": "successful",
     "job_id": "effa191e-d01f-450f-9b77-d3262188f80f"
   },
   {
@@ -276,16 +276,16 @@
     "dataset": "reanalysis-era5-pressure-levels",
     "year": "2026",
     "month": "05",
-    "status": "pending",
-    "job_id": null
+    "status": "submitted",
+    "job_id": "dc789a16-e1f6-4156-90b3-7b6e88ccee2b"
   },
   {
     "id": "2026_press_M06",
     "dataset": "reanalysis-era5-pressure-levels",
     "year": "2026",
     "month": "06",
-    "status": "pending",
-    "job_id": null
+    "status": "submitted",
+    "job_id": "c12a6141-6abf-4ebc-9506-d53a65753a55"
   },
   {
     "id": "2026_press_M07",
