@@ -1,0 +1,44 @@
+name: Vada Lamma 15m Live
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  acquire-vada-15m:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Tesseract and Python packages
+        run: |
+          sudo apt-get update && sudo apt-get install -y tesseract-ocr tesseract-ocr-ita
+          pip install requests pillow numpy pandas pytesseract
+
+      - name: Fetch Vada wind from LaMMA chart
+        env:
+          LAMMA_VADA_IMG_URL: ${{ secrets.LAMMA_VADA_IMG_URL }}
+          VADA_LIVE_CSV: data/live/vada_lamma_15m.csv
+        run: python src/fetch_vada_lamma_15m.py
+
+      - name: Commit and push if new data arrived
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/live/vada_lamma_15m.csv
+          if ! git diff --staged --quiet; then
+            git commit -m "chore(live): update Vada LaMMA 15m observation"
+            git push
+          else
+            echo "Nessuna nuova rilevazione da committare."
+          fi
