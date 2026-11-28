@@ -20,11 +20,10 @@ CHART_CODES = {
 
 DEFAULT_SUFFIX = {
     "ws_kmh": "vdmk",
-    "temp_c": "tdmk",
+    "temp_c": "temp",
     "rh_pct": "umid",
     "press_hpa": "pres",
     "rad_wm2": "rdgl",
-    "rh_pct": "umid"
 }
 
 def build_url(var_key: str, now_solare: datetime) -> str:
