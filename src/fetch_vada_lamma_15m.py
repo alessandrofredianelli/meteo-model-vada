@@ -21,11 +21,11 @@ CHART_CODES = {
 DEFAULT_SUFFIX = {
     "ws_kmh": "vdmk",
     "temp_c": "tdmk",
-    "rh_pct": "udmk",
-    "press_hpa": "pdmk",
-    "rad_wm2": "rdmk",
+    "rh_pct": "umid",
+    "press_hpa": "pres",
+    "rad_wm2": "rdgl",
+    "rh_pct": "umid"
 }
-
 
 def build_url(var_key: str, now_solare: datetime) -> str:
     override = CHART_CODES.get(var_key, "")
